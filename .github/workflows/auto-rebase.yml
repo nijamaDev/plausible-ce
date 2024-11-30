@@ -9,8 +9,8 @@ jobs:
     update:
         runs-on: ubuntu-latest
         env: # CONFIGURATION
-            branch: v2.1.5 # Declare the branch as an environment variable
-            branch-fork: v2.1.5-fork
+            branch: v3.0.1 # Declare the branch as an environment variable
+            branch-fork: v3.0.1-fork
             upstream: https://github.com/plausible/community-edition # Repo
         steps:
             - name: Checkout
