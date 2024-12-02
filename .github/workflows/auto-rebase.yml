@@ -1,0 +1,39 @@
+name: Check updates and rebase
+
+on:
+    schedule:
+        # Runs the workflow automatically every Sunday at 11:11 AM UTC
+        - cron: "11 11 * * 0"
+
+jobs:
+    update:
+        runs-on: ubuntu-latest
+        env: # CONFIGURATION
+            branch: v2.1.4 # Declare the branch as an environment variable
+            upstream: https://github.com/plausible/community-edition # Repo
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  ref: "${{ env.branch }}" # Use the branch variable
+                  fetch-depth: 0 # Fetches all history for branch comparison
+                  token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Uses PAT to authenticate
+
+            - name: Configure Git
+              run: |
+                  git config --global user.name "nijamaDev"
+                  git config --global user.email "37962012+nijamaDev@users.noreply.github.com"
+
+            - name: Add upstream remote
+              run: |
+                  git remote add upstream ${{ env.upstream }}
+                  git fetch upstream
+
+            - name: Rebase with upstream
+              run: |
+                  git checkout ${{ env.branch }}
+                  git rebase upstream/${{ env.branch }}
+
+            - name: Force push to main
+              run: |
+                  git push origin ${{ env.branch }} --force
