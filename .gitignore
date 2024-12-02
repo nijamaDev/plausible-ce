@@ -6,3 +6,7 @@
 !README.md
 !LICENSE
 !.gitignore
+# Custom
+!.github/
+!.github/workflows/
+!.github/workflows/auto-rebase.yml
