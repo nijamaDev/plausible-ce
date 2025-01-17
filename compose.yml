@@ -47,6 +47,7 @@ services:
         soft: 65535
         hard: 65535
     environment:
+      - ERL_FLAGS=+sbwt none +sbwtdcpu none +sbwtdio none
       - TMPDIR=/var/lib/plausible/tmp
       # required: https://github.com/plausible/community-edition/wiki/configuration#required
       - BASE_URL=${BASE_URL}
