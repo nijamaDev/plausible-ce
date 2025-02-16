@@ -9,13 +9,14 @@ jobs:
     update:
         runs-on: ubuntu-latest
         env: # CONFIGURATION
-            branch: v2.1.4 # Declare the branch as an environment variable
+            branch: v2.1.5 # Declare the branch as an environment variable
+            branch-fork: v2.1.5-fork
             upstream: https://github.com/plausible/community-edition # Repo
         steps:
             - name: Checkout
               uses: actions/checkout@v4
               with:
-                  ref: "${{ env.branch }}" # Use the branch variable
+                  ref: "${{ env.branch-fork }}" # Use the branch variable
                   fetch-depth: 0 # Fetches all history for branch comparison
                   token: ${{ secrets.PERSONAL_ACCESS_TOKEN }} # Uses PAT to authenticate
 
@@ -36,4 +37,4 @@ jobs:
 
             - name: Force push to main
               run: |
-                  git push origin ${{ env.branch }} --force
+                  git push origin ${{ env.branch-fork }} --force
